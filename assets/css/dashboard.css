@@ -1,0 +1,93 @@
+/* Google Font Import - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  /* ===== Colors ===== */
+  --celeste: #ABDCFF;
+  --azul: #0396FF;
+  --rosado: #FFD3A5;
+  --fuccia: #FD6585;
+  --blanco: #fff;
+  --lila: #EE9AE5;
+  --azulado: #5961F9;
+  --agua-marina: #2AFADF;
+  --azul-oscuro: #4C83FF;
+
+}
+
+/* formas */
+body {
+    width: 100%;
+    background-color: transparent;
+    overflow-x: hidden;
+}
+
+.contenedor {
+    width: 100%;
+}
+
+.redondear {
+    border-radius: 10px;
+}
+
+.icon{
+    font-size: 22px;
+    margin-top: 15px;
+}
+
+
+
+/* colores */
+.bg-rojizo {
+    background: linear-gradient(135deg, var(--celeste) 10%, var(--azul) 100%);
+    color: var(--blanco);
+}
+
+.bg-lila {
+    background: linear-gradient(135deg, var(--rosado) 10%, var(--fuccia) 100%);
+    color: var(--blanco);
+}
+
+.bg-celeste {
+    background: linear-gradient(135deg, var(--lila) 10%, var(--azulado) 100%);
+    color: var(--blanco);
+}
+
+.bg-azulejo{
+    background: linear-gradient(135deg, var(--agua-marina) 10%, var(--azul-oscuro) 100%);
+    color: #000;
+}
+
+/* estilos */
+.titulo{
+    margin-top: 15px;
+}
+
+.subtitulo{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* tamaños */
+.w-30 {
+    width: 35%;
+}
+
+.fs-7 {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#chart-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}

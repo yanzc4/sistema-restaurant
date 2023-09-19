@@ -1,0 +1,27 @@
+body{
+    width: 100%;
+    background-color: transparent;
+    overflow-x: hidden;
+}
+.contenedor{
+    width: 100%;
+}
+.redondear{
+    border-radius: 10px;
+}
+.bg-naranja{
+    background: linear-gradient(orange, yellow);
+}
+.w-30{
+    width: 35%;
+}
+.fs-7{
+    font-size: 12px;
+    font-weight: bold;
+}
+#chart-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
