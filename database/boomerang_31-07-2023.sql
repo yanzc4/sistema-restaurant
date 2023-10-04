@@ -38,9 +38,9 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Excede la cantidad del stock', MYSQL
 end if;
 end$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_agregarcategoria` (`nombre` VARCHAR(100))  insert into categoria_p(nombre) values(nombre)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_agregarcategoria` (`nombre` VARCHAR(100))  insert into categoria_p(nombre) values(nombre)$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_agregarnoticia` (`titulo` VARCHAR(100), `imagen` VARCHAR(300), `cuerpo` VARCHAR(550))  insert into noticias(titulo,fecha,imagen,cuerpo) values(titulo,curdate(),imagen,cuerpo)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_agregarnoticia` (`titulo` VARCHAR(100), `imagen` VARCHAR(300), `cuerpo` VARCHAR(550))  insert into noticias(titulo,fecha,imagen,cuerpo) values(titulo,curdate(),imagen,cuerpo)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `_agregarnuevoproducto` (`nom` VARCHAR(100), `cant` INT)  begin
 if length(nom)>0 then
@@ -50,9 +50,9 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'campo vacio', MYSQL_ERRNO = 3002;
 end if;
 end$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_agregarplato` (`nombre` VARCHAR(100), `id_cate` INT, `precio` DECIMAL(10,2))  insert into platos(nombre,id_categoria,precio) values (nombre, id_cate, precio)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_agregarplato` (`nombre` VARCHAR(100), `id_cate` INT, `precio` DECIMAL(10,2))  insert into platos(nombre,id_categoria,precio) values (nombre, id_cate, precio)$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_agregarusuario` (`xcod` CHAR(4), `nombre` VARCHAR(30), `apellido` VARCHAR(30), `celular` VARCHAR(9), `users` VARCHAR(25), `pass` VARCHAR(25), `nivel` VARCHAR(20), `nacimiento` DATE)  insert into usuarios(cod_user,nombre,apellido,celular,users,passwords,nivel,f_nacimiento)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_agregarusuario` (`xcod` CHAR(4), `nombre` VARCHAR(30), `apellido` VARCHAR(30), `celular` VARCHAR(9), `users` VARCHAR(25), `pass` VARCHAR(25), `nivel` VARCHAR(20), `nacimiento` DATE)  insert into usuarios(cod_user,nombre,apellido,celular,users,passwords,nivel,f_nacimiento)
 values(xcod, nombre, apellido, celular, users, pass, nivel, nacimiento)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `_cambiaestadolista` (`cod` INT)  update listapedido set estado=0 where id=cod$$
@@ -65,9 +65,9 @@ update listapedido set color=0 where id=cod;
 end if;
 end$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_creardetalleventa` (`vcod` INT, `pcod` INT, `cantidad` INT, `pprecio` DECIMAL(10,2), `descuento` DECIMAL(10,2))  insert into venta_detalle(id_venta,id_plato,cantidad,precio,descuento) values (vcod, pcod, cantidad, pprecio, descuento)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_creardetalleventa` (`vcod` INT, `pcod` INT, `cantidad` INT, `pprecio` DECIMAL(10,2), `descuento` DECIMAL(10,2))  insert into venta_detalle(id_venta,id_plato,cantidad,precio,descuento) values (vcod, pcod, cantidad, pprecio, descuento)$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_crearventas` (`ecod` CHAR(4), `vfecha` DATE, `vcliente` VARCHAR(50))  begin
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_crearventas` (`ecod` CHAR(4), `vfecha` DATE, `vcliente` VARCHAR(50))  begin
 if length(vcliente)>0 then
 insert into ventas(cod_user,fecha,cliente) values (ecod,vfecha,vcliente);
 else
@@ -75,17 +75,17 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'campo vacio', MYSQL_ERRNO = 3002;
 end if;
 end$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_eliminarcategoria` (`cod` INT)  delete from categoria_p where id_categoria = cod$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_eliminarcategoria` (`cod` INT)  delete from categoria_p where id_categoria = cod$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_eliminardetalleventa` (`vcod` INT, `pcod` INT)  delete from venta_detalle where id_venta = vcod and id_plato=pcod$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_eliminardetalleventa` (`vcod` INT, `pcod` INT)  delete from venta_detalle where id_venta = vcod and id_plato=pcod$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_eliminarplato` (`cod` INT)  delete from platos where id = cod$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_eliminarplato` (`cod` INT)  delete from platos where id = cod$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_eliminarusuario` (`cod` CHAR(4))  delete from usuarios where cod_user = cod$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_eliminarusuario` (`cod` CHAR(4))  delete from usuarios where cod_user = cod$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_eliminarventa` (`vcod` INT)  delete from ventas where id_ventas = vcod$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_eliminarventa` (`vcod` INT)  delete from ventas where id_ventas = vcod$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_infoventas` ()  select sum(vd.precio*vd.cantidad)-sum(vd.descuento) total, count(v.id_ventas) ventas,
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_infoventas` ()  select sum(vd.precio*vd.cantidad)-sum(vd.descuento) total, count(v.id_ventas) ventas,
 sum(vd.descuento) descuento
 from ventas v join venta_detalle vd on v.id_ventas=vd.id_venta
 where month(v.fecha)=month(curdate()) and year(v.fecha)=year(curdate())$$
@@ -96,26 +96,26 @@ join platos p on  l.id_plato = p.id where l.estado=1
 and p.nombre LIKE LOWER(buscador)
 order by l.id_venta asc, l.id desc$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_listardetalleventa` (`vcod` INT)  select p.id Cod, p.nombre Menu, sum(vd.cantidad) Cantidad, vd.precio Precio, sum(vd.descuento) dsc
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_listardetalleventa` (`vcod` INT)  select p.id Cod, p.nombre Menu, sum(vd.cantidad) Cantidad, vd.precio Precio, sum(vd.descuento) dsc
 from venta_detalle vd join platos p on vd.id_plato=p.id
 where vd.id_venta=vcod group by p.id, p.nombre, vd.precio$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `_listarinventario` (`_bus` VARCHAR(50))  select * from productos where nombre LIKE LOWER(_bus) order by id_producto desc$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_listarplatos` (`_bus` VARCHAR(100))  select p.id cod, p.nombre plato, p.id_categoria idcate, c.nombre categoria, p.precio precio from platos p join categoria_p c 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_listarplatos` (`_bus` VARCHAR(100))  select p.id cod, p.nombre plato, p.id_categoria idcate, c.nombre categoria, p.precio precio from platos p join categoria_p c 
 on p.id_categoria=c.id_categoria
 where p.nombre LIKE LOWER(_bus) order by p.id desc$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_modificarcategoria` (`ccod` INT, `nombre` VARCHAR(100))  update categoria_p
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_modificarcategoria` (`ccod` INT, `nombre` VARCHAR(100))  update categoria_p
 set nombre=nombre where id_categoria = ccod$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_modificarplato` (`codp` INT, `nombre` VARCHAR(100), `cate` INT, `precio` DECIMAL(10,2))  update platos set nombre=nombre, id_categoria=cate, precio=precio where id=codp$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_modificarplato` (`codp` INT, `nombre` VARCHAR(100), `cate` INT, `precio` DECIMAL(10,2))  update platos set nombre=nombre, id_categoria=cate, precio=precio where id=codp$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_modificarusuario` (`xcod` CHAR(4), `nombre` VARCHAR(30), `apellido` VARCHAR(30), `celular` VARCHAR(9), `users` VARCHAR(25), `pass` VARCHAR(25), `nivel` VARCHAR(20), `fecha` DATE)  update usuarios
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_modificarusuario` (`xcod` CHAR(4), `nombre` VARCHAR(30), `apellido` VARCHAR(30), `celular` VARCHAR(9), `users` VARCHAR(25), `pass` VARCHAR(25), `nivel` VARCHAR(20), `fecha` DATE)  update usuarios
 set nombre=nombre, apellido=apellido, celular=celular, users=users, passwords=pass, nivel=nivel, f_nacimiento=fecha
 where cod_user = xcod$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_modificarventa` (`vcod` INT, `ecod` CHAR(4), `vfecha` DATE, `vcliente` VARCHAR(50))  update ventas set cod_user = ecod, fecha =vfecha, cliente = vcliente where id_ventas = vcod$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_modificarventa` (`vcod` INT, `ecod` CHAR(4), `vfecha` DATE, `vcliente` VARCHAR(50))  update ventas set cod_user = ecod, fecha =vfecha, cliente = vcliente where id_ventas = vcod$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `_nombrevendedor` (`vid` INT)  select concat(u.nombre,' ',u.apellido) vendedor, v.cliente from ventas v join usuarios u on v.cod_user=u.cod_user
 where v.id_ventas=vid$$
@@ -131,33 +131,33 @@ join ventas v on vd.id_venta=v.id_ventas join usuarios u on v.cod_user=u.cod_use
 where v.fecha between fecha1 and fecha2
 group by vd.id_venta$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_topbebidas` ()  select p.nombre, sum(vd.cantidad) from venta_detalle vd join platos p on vd.id_plato=p.id
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_topbebidas` ()  select p.nombre, sum(vd.cantidad) from venta_detalle vd join platos p on vd.id_plato=p.id
 join ventas v on vd.id_venta=v.id_ventas
 where month(v.fecha)=month(curdate()) and year(v.fecha)=year(curdate())
 group by p.nombre order by sum(vd.cantidad) desc limit 5$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_topcategorias` ()  select cp.nombre, sum(vd.cantidad) from venta_detalle vd join platos p on vd.id_plato=p.id
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_topcategorias` ()  select cp.nombre, sum(vd.cantidad) from venta_detalle vd join platos p on vd.id_plato=p.id
 join categoria_p cp on p.id_categoria=cp.id_categoria
 join ventas v on vd.id_venta=v.id_ventas
 where month(v.fecha)=month(curdate()) and year(v.fecha)=year(curdate())
 group by cp.nombre order by sum(vd.cantidad) desc limit 5$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_totalventa` (`vcod` INT)  select sum(vd.descuento) dsc, sum((vd.cantidad*vd.precio)-vd.descuento) total, v.fecha
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_totalventa` (`vcod` INT)  select sum(vd.descuento) dsc, sum((vd.cantidad*vd.precio)-vd.descuento) total, v.fecha
 from venta_detalle vd
 join ventas v on vd.id_venta=v.id_ventas
 where id_venta=vcod group by vd.id_venta, v.fecha$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_ventasempleado` ()  select u.nombre, sum(vd.precio*vd.cantidad)-sum(vd.descuento) ventas from usuarios u join ventas v on u.cod_user=v.cod_user
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_ventasempleado` ()  select u.nombre, sum(vd.precio*vd.cantidad)-sum(vd.descuento) ventas from usuarios u join ventas v on u.cod_user=v.cod_user
 join venta_detalle vd on v.id_ventas=vd.id_venta
 where month(v.fecha)=month(curdate()) and year(v.fecha)=year(curdate())
 group by u.nombre order by count(v.id_ventas) desc limit 4$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_ventasmes` ()  select month(v.fecha) mes, sum(vd.precio*vd.cantidad)-sum(vd.descuento) total
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_ventasmes` ()  select month(v.fecha) mes, sum(vd.precio*vd.cantidad)-sum(vd.descuento) total
 from venta_detalle vd join ventas v on vd.id_venta=v.id_ventas
 where year(v.fecha)=year(curdate())
 group by month(v.fecha) order by month(v.fecha) asc limit 6$$
 
-CREATE DEFINER=`yanzc23`@`localhost` PROCEDURE `_wlistarplatos` (`_bus` VARCHAR(50))  select p.id as CODIGO, p.nombre as MENU, p.precio as PRECIO from platos p where p.nombre LIKE LOWER(_bus) order by p.id desc limit 3$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `_wlistarplatos` (`_bus` VARCHAR(50))  select p.id as CODIGO, p.nombre as MENU, p.precio as PRECIO from platos p where p.nombre LIKE LOWER(_bus) order by p.id desc limit 3$$
 
 DELIMITER ;
 
